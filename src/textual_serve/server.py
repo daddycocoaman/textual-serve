@@ -214,7 +214,10 @@ class Server:
         def get_websocket_url(route: str, **args) -> str:
             """Get a URL with a websocket prefix."""
             url = get_url(route, **args)
-            return "ws:" + url.split(":", 1)[1]
+            if url.startswith("https"):
+                return "wss:" + url.split(":", 1)[1]
+            else:
+                return "ws:" + url.split(":", 1)[1]
 
         context = {
             "font_size": font_size,
